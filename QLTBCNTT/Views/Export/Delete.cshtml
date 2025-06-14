@@ -1,0 +1,31 @@
+﻿@model QLTBCNTT.Models.PhieuXuat
+@{
+    ViewData["Title"] = "Xóa phiếu xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Bạn có chắc chắn muốn xóa phiếu xuất này?</h3>
+<div>
+    <h4>Phiếu xuất</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Mã phiếu xuất</dt>
+        <dd class="col-sm-10">@Model.MaPhieuxuat</dd>
+
+        <dt class="col-sm-2">Ngày xuất</dt>
+        <dd class="col-sm-10">@Model.NgayXuat</dd>
+
+        <dt class="col-sm-2">Phòng ban</dt>
+        <dd class="col-sm-10">@Model.MaPhongbanNavigation?.TenPhongban</dd>
+
+        <dt class="col-sm-2">Người nhận</dt>
+        <dd class="col-sm-10">@Model.NguoiNhanNavigation?.HoTen</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaPhieuxuat" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay lại danh sách</a>
+    </form>
+</div>

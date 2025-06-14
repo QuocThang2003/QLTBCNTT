@@ -1,0 +1,38 @@
+﻿@model QLTBCNTT.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Chi tiết thiết bị";
+}
+
+<h2>Chi tiết thiết bị</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-4">Tên thiết bị</dt>
+        <dd class="col-sm-8">@Model.TenThietbi</dd>
+
+        <dt class="col-sm-4">Số serial</dt>
+        <dd class="col-sm-8">@Model.SoSerial</dd>
+
+        <dt class="col-sm-4">Danh mục</dt>
+        <dd class="col-sm-8">@Model.MaDanhmucNavigation?.TenDanhmuc</dd>
+
+        <dt class="col-sm-4">Nhà cung cấp</dt>
+        <dd class="col-sm-8">@Model.MaNccNavigation?.TenNcc</dd>
+
+        <dt class="col-sm-4">Ngày mua</dt>
+        <dd class="col-sm-8">@Model.NgayMua?.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-4">Giá mua</dt>
+        <dd class="col-sm-8">@Model.GiaMua</dd>
+
+        <dt class="col-sm-4">Thời gian bảo hành</dt>
+        <dd class="col-sm-8">@Model.ThoiGianBaohanh tháng</dd>
+
+        <dt class="col-sm-4">Trạng thái</dt>
+        <dd class="col-sm-8">@Model.TrangThai</dd>
+    </dl>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.MaThietbi" class="btn btn-primary">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

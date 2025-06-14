@@ -1,0 +1,25 @@
+﻿@model QLTBCNTT.Models.PhieuNhap
+
+<h2 class="text-center my-4">Chỉnh sửa Phiếu Nhập</h2>
+<form asp-action="Edit" class="card p-4 shadow">
+    <input type="hidden" asp-for="MaPhieunhap" />
+
+    <div class="form-group mb-3">
+        <label asp-for="NgayNhap" class="form-label">Ngày nhập</label>
+        <input asp-for="NgayNhap" class="form-control" type="date" />
+        <span asp-validation-for="NgayNhap" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NguoiNhan" class="form-label">Người nhận</label>
+        <select asp-for="NguoiNhan" class="form-control" asp-items="ViewBag.NguoiNhan"></select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="MaNcc" class="form-label">Nhà cung cấp</label>
+        <select asp-for="MaNcc" class="form-control" asp-items="ViewBag.MaNcc"></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

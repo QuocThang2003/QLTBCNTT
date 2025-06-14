@@ -1,0 +1,78 @@
+﻿@model IEnumerable<QLTBCNTT.Models.ThietBi>
+@{
+    ViewData["Title"] = "Danh sách thiết bị";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<h2>Danh sách thiết bị</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Tên thiết bị</th>
+            <th>Loại thiết bị</th>
+            <th>Nhà cung cấp</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var thietBi in Model)
+        {
+            var phieuMuonDangXuLy = thietBi.ChiTietPhieuMuons
+            .Where(ct => ct.MaPhieumuonNavigation != null)
+            .Select(ct => ct.MaPhieumuonNavigation)
+            .FirstOrDefault(p => p.TrangThai == "cho_duyet" || p.TrangThai == "da_duyet" || p.TrangThai == "dang_muon" || p.TrangThai == "tre_han");
+
+            <tr>
+                <td>@thietBi.TenThietbi</td>
+                <td>@thietBi.MaDanhmucNavigation?.TenDanhmuc</td>
+                <td>@thietBi.MaNccNavigation?.TenNcc</td>
+                <td>
+                    @if (phieuMuonDangXuLy != null)
+                    {
+                        string trangThaiPM = phieuMuonDangXuLy.TrangThai switch
+                        {
+                            "cho_duyet" => "Đang chờ duyệt",
+                            "da_duyet" => "Đã duyệt",
+                            "dang_muon" => "Đang mượn",
+                            "tre_han" => "Trễ hạn",
+                            _ => "Không rõ"
+                        };
+                        @trangThaiPM
+                    }
+                    else
+                    {
+                        string displayTrangThai = thietBi.TrangThai switch
+                        {
+                            "con_hang" => "Còn hàng",
+                            "dang_su_dung" => "Đang sử dụng",
+                            "dang_baotri" => "Đang bảo trì",
+                            "da_thanhly" => "Đã thanh lý",
+                            _ => thietBi.TrangThai
+                        };
+                        @displayTrangThai
+                    }
+                </td>
+                <td>
+                    @if (phieuMuonDangXuLy == null && (thietBi.TrangThai == "con_hang" || thietBi.TrangThai == "dang_su_dung"))
+                    {
+                        <a class="btn btn-sm btn-success" href="@Url.Action("Borrow", "StaffDevice", new { id = thietBi.MaThietbi })">
+                            Mượn
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Không khả dụng</span>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

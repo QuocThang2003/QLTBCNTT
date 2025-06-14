@@ -1,0 +1,36 @@
+﻿@model QLTBCNTT.Models.NhaCungCap
+
+@{
+    ViewData["Title"] = "Thêm Nhà Cung Cấp mới";
+}
+
+<h2 class="mb-4 text-primary fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm rounded-3 p-4">
+    <form asp-action="Create" method="post" class="needs-validation" novalidate>
+
+        <input type="hidden" asp-for="MaNcc" />
+
+        <div class="mb-3">
+            <label asp-for="TenNcc" class="form-label">Tên Nhà Cung Cấp</label>
+            <input asp-for="TenNcc" class="form-control" />
+            <span asp-validation-for="TenNcc" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Sdt" class="form-label">Số điện thoại</label>
+            <input asp-for="Sdt" class="form-control" />
+            <span asp-validation-for="Sdt" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save me-1"></i> Lưu
+        </button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

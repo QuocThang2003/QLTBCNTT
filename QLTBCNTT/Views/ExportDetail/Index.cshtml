@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QLTBCNTT.Models.ChiTietPhieuXuat>
+
+@{
+    ViewData["Title"] = "Danh sách chi tiết phiếu xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã chi tiết</th>
+            <th>Mã phiếu xuất</th>
+            <th>Thiết bị</th>
+            <th>Số lượng</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaChitietxuat</td>
+                <td>@item.MaPhieuxuat</td>
+                <td>@item.MaThietbiNavigation?.TenThietbi</td>
+                <td>@item.SoLuong</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaChitietxuat">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaChitietxuat">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaChitietxuat">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

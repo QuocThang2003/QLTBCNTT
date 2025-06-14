@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QLTBCNTT.Models.PhieuXuat>
+
+@{
+    ViewData["Title"] = "Danh sách phiếu xuất";
+}
+
+<h2>Danh sách phiếu xuất</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm phiếu xuất mới</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã phiếu xuất</th>
+            <th>Ngày xuất</th>
+            <th>Phòng ban</th>
+            <th>Người nhận</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaPhieuxuat</td>
+                <td>@item.NgayXuat.ToString("dd/MM/yyyy")</td>
+                <td>@item.MaPhongbanNavigation?.TenPhongban</td>
+                <td>@item.NguoiNhanNavigation?.HoTen</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.MaPhieuxuat" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Edit" asp-route-id="@item.MaPhieuxuat" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaPhieuxuat" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

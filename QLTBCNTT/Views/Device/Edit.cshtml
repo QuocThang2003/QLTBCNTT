@@ -1,0 +1,73 @@
+﻿@model QLTBCNTT.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thiết bị";
+
+    var trangThaiList = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "con_hang", Text = "Còn hạng" },
+        new SelectListItem { Value = "dang_su_dung", Text = "Đang sử dụng" },
+        new SelectListItem { Value = "dang_muon", Text = "Đang mượn" },
+        new SelectListItem { Value = "dang_baotri", Text = "Đang bảo trì" },
+        new SelectListItem { Value = "da_thanhly", Text = "Đã thanh lý" }
+    };
+}
+
+<h2>Chỉnh sửa thiết bị</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaThietbi" />
+
+    <div class="form-group">
+        <label asp-for="TenThietbi" class="control-label"></label>
+        <input asp-for="TenThietbi" class="form-control" />
+        <span asp-validation-for="TenThietbi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SoSerial" class="control-label"></label>
+        <input asp-for="SoSerial" class="form-control" />
+        <span asp-validation-for="SoSerial" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaDanhmuc" class="control-label"></label>
+        <select asp-for="MaDanhmuc" class="form-control" asp-items="ViewBag.MaDanhmuc"></select>
+        <span asp-validation-for="MaDanhmuc" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaNcc" class="control-label"></label>
+        <select asp-for="MaNcc" class="form-control" asp-items="ViewBag.MaNcc"></select>
+        <span asp-validation-for="MaNcc" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NgayMua" class="control-label"></label>
+        <input asp-for="NgayMua" type="date" class="form-control" />
+        <span asp-validation-for="NgayMua" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GiaMua" class="control-label"></label>
+        <input asp-for="GiaMua" class="form-control" />
+        <span asp-validation-for="GiaMua" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ThoiGianBaohanh" class="control-label"></label>
+        <input asp-for="ThoiGianBaohanh" class="form-control" />
+        <span asp-validation-for="ThoiGianBaohanh" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TrangThai" class="control-label"></label>
+        <select asp-for="TrangThai" class="form-control" asp-items="trangThaiList">
+            <option value="">-- Chọn trạng thái --</option>
+        </select>
+        <span asp-validation-for="TrangThai" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

@@ -1,0 +1,25 @@
+﻿@model QLTBCNTT.Models.ChiTietPhieuXuat
+
+@{
+    ViewData["Title"] = "Chi tiết phiếu xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Mã chi tiết</dt>
+        <dd class="col-sm-9">@Model.MaChitietxuat</dd>
+
+        <dt class="col-sm-3">Mã phiếu xuất</dt>
+        <dd class="col-sm-9">@Model.MaPhieuxuat</dd>
+
+        <dt class="col-sm-3">Thiết bị</dt>
+        <dd class="col-sm-9">@Model.MaThietbiNavigation?.TenThietbi</dd>
+
+        <dt class="col-sm-3">Số lượng</dt>
+        <dd class="col-sm-9">@Model.SoLuong</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.MaChitietxuat" class="btn btn-primary">Sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Trở về</a>
+</div>

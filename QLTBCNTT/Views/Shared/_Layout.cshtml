@@ -1,0 +1,388 @@
+﻿@{
+    var userName = Context.Session.GetString("UserName") ?? "Người dùng";
+    var userRole = Context.Session.GetString("UserRole") ?? "Không rõ vai trò";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - QLTBCNTT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(90deg, #2b6cb0, #4c9e9e);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .navbar-brand img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            max-width: 400px;
+        }
+        .search-bar .input-group {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .search-bar .input-group:focus-within {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .search-bar .input-group-text {
+            background-color: #fff;
+            border: none;
+            color: #2b6cb0;
+            border-radius: 25px 0 0 25px;
+        }
+        .search-bar .form-control {
+            border: none;
+            border-radius: 0 25px 25px 0;
+            padding: 8px 15px;
+            font-weight: 500;
+            color: #1a202c;
+            transition: all 0.3s;
+        }
+        .search-bar .form-control:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .search-bar .form-control::placeholder {
+            color: #6b7280;
+            font-weight: 400;
+        }
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-icons a {
+            color: #fff;
+            margin-left: 15px;
+            position: relative;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-icons .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+        .navbar-icons .admin-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            z-index: 900;
+            padding: 20px 0;
+            background-color: #fff;
+            color: #333;
+            width: 200px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .sidebar.collapsed-full {
+            width: 40px;
+            padding: 20px 0;
+        }
+        .sidebar.collapsed-full .nav {
+            display: none;
+        }
+        .sidebar .toggle-btn {
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background-color: #2b6cb0;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 901;
+            transition: right 0.3s ease;
+        }
+        .sidebar.collapsed-full .toggle-btn {
+            right: 5px;
+        }
+        .sidebar .nav-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .sidebar .nav-link {
+            color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #f1f3f5;
+            color: #333;
+        }
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+            color: #fff;
+            border-left: 4px solid #0056b3;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+        }
+        .sidebar .nav-link:hover i {
+            color: #333;
+        }
+        .sidebar .nav-link.active i {
+            color: #fff;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            margin-left: 200px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+        .main-content.collapsed {
+            margin-left: 60px;
+        }
+        .main-content.collapsed-full {
+            margin-left: 40px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            color: #007bff;
+            font-weight: 500;
+        }
+        .table {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-action {
+            margin-right: 5px;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .btn-add-device {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+        .btn-add-device:hover {
+            background-color: #218838;
+        }
+        .btn-add-device i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <img src="~/images/logo.png" alt="Logo">
+            Thiết bị CNTT
+        </a>
+        <div class="search-bar">
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Tìm kiếm..." id="searchInput">
+            </div>
+        </div>
+        <div class="navbar-icons">
+            <a href="#"><i class="fas fa-bell"></i><span class="badge">3</span></a>
+            <a href="#" class="admin-profile d-flex align-items-center">
+                <img src="~/images/ANHMOI.jpg" alt="Avatar" style="height: 30px; width: 30px; border-radius: 50%; margin-right: 5px;">
+                <span>@userName (@userRole)</span>
+            </a>
+            <a href="@Url.Action("Logout", "Auth")"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="sidebar" id="sidebar">
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-tachometer-alt"></i> <span>Tổng quan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Device")">
+                            <i class="fas fa-box"></i> <span>Kho thiết bị</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Receipt")">
+                            <i class="fas fa-file-import"></i> <span>Phiếu nhập</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ReceiptDetail")">
+                            <i class="fas fa-file-alt"></i> <span>Chi tiết phiếu nhập</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Export")">
+                            <i class="fas fa-file-export"></i> <span>Phiếu xuất</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ExportDetail")">
+                            <i class="fas fa-file-alt"></i> <span>Chi tiết phiếu xuất</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Loan")">
+                            <i class="fas fa-check-circle"></i> <span>Duyệt phiếu mượn</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Category")">
+                            <i class="fas fa-tags"></i> <span>Danh mục</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "UserManagement")">
+                            <i class="fas fa-users"></i> <span>Quản lý người dùng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Department")">
+                            <i class="fas fa-building"></i> <span>Quản lý phòng ban</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Supplier")">
+                            <i class="fas fa-truck"></i> <span>Nhà cung cấp</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Maintenance")">
+                            <i class="fas fa-tools"></i> <span>Bảo trì</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-chart-bar"></i> <span>Báo cáo</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col px-4 main-content" id="main-content">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleBtnIcon = document.querySelector('.toggle-btn i');
+            
+            sidebar.classList.toggle('collapsed');
+            sidebar.classList.toggle('collapsed-full');
+            mainContent.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed-full');
+            
+            if (sidebar.classList.contains('collapsed-full')) {
+                toggleBtnIcon.classList.remove('fa-chevron-left');
+                toggleBtnIcon.classList.add('fa-chevron-right');
+            } else if (sidebar.classList.contains('collapsed')) {
+                toggleBtnIcon.classList.remove('fa-chevron-right');
+                toggleBtnIcon.classList.add('fa-chevron-left');
+            } else {
+                toggleBtnIcon.classList.remove('fa-chevron-right');
+                toggleBtnIcon.classList.add('fa-chevron-left');
+            }
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

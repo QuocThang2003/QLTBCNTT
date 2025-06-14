@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QLTBCNTT.Models.BaoTri>
+
+@{
+    ViewData["Title"] = "Danh sách bảo trì";
+}
+
+<h2 class="text-center my-4">Danh sách bảo trì</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark text-center">
+        <tr>
+            <th>Thiết bị</th>
+            <th>Ngày bảo trì</th>
+            <th>Ngày hoàn thành</th>
+            <th>Loại bảo trì</th>
+            <th>Trạng thái</th>
+            <th>Người phụ trách</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaThietbiNavigation?.TenThietbi</td>
+                <td>@item.NgayBaotri</td>
+                <td>@item.NgayHoanthanh</td>
+                <td>@item.LoaiBaotri</td>
+                <td>@item.TrangThai</td>
+                <td>@item.NguoiPhuTrachNavigation?.HoTen</td>
+                <td class="text-center">
+                    <a asp-action="Details" asp-route-id="@item.MaBaotri" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Edit" asp-route-id="@item.MaBaotri" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaBaotri" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

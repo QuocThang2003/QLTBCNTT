@@ -1,0 +1,36 @@
+﻿@model QLTBCNTT.Models.BaoTri
+
+@{
+    ViewData["Title"] = "Thêm mới bảo trì";
+}
+
+<h2 class="text-center my-4">Thêm mới bảo trì</h2>
+
+<form asp-action="Create">
+    <div class="mb-3">
+        <label class="form-label">Thiết bị</label>
+        <select asp-for="MaThietbi" class="form-control" asp-items="ViewBag.DeviceId"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Ngày bảo trì</label>
+        <input asp-for="NgayBaotri" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Ngày hoàn thành</label>
+        <input asp-for="NgayHoanthanh" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Loại bảo trì</label>
+        <input asp-for="LoaiBaotri" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Trạng thái</label>
+        <input asp-for="TrangThai" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Người phụ trách</label>
+        <select asp-for="NguoiPhuTrach" class="form-control" asp-items="ViewBag.TechnicianId"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

@@ -1,0 +1,18 @@
+﻿@model QLTBCNTT.Models.PhongBan
+@{
+    ViewData["Title"] = "Sửa Phòng Ban";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaPhongban" />
+
+    <div class="form-group">
+        <label asp-for="TenPhongban"></label>
+        <input asp-for="TenPhongban" class="form-control" />
+        <span asp-validation-for="TenPhongban" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

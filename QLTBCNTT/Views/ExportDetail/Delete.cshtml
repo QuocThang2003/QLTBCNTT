@@ -1,0 +1,25 @@
+﻿@model QLTBCNTT.Models.ChiTietPhieuXuat
+
+@{
+    ViewData["Title"] = "Xóa chi tiết phiếu xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Bạn có chắc chắn muốn xóa chi tiết phiếu xuất này?</h3>
+<div>
+    <h4>Thông tin chi tiết:</h4>
+    <dl class="row">
+        <dt class="col-sm-3">Thiết bị</dt>
+        <dd class="col-sm-9">@Model.MaThietbiNavigation?.TenThietbi</dd>
+
+        <dt class="col-sm-3">Số lượng</dt>
+        <dd class="col-sm-9">@Model.SoLuong</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaChitietxuat" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

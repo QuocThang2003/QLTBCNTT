@@ -1,0 +1,25 @@
+﻿@model QLTBCNTT.Models.BaoTri
+
+@{
+    ViewData["Title"] = "Xóa bảo trì";
+}
+
+<h2 class="text-center my-4">Xóa bảo trì</h2>
+
+<h4>Bạn có chắc chắn muốn xóa bản ghi này không?</h4>
+<dl class="row">
+    <dt class="col-sm-2">Thiết bị</dt>
+    <dd class="col-sm-10">@Model.MaThietbiNavigation?.TenThietbi</dd>
+
+    <dt class="col-sm-2">Ngày bảo trì</dt>
+    <dd class="col-sm-10">@Model.NgayBaotri</dd>
+
+    <dt class="col-sm-2">Loại bảo trì</dt>
+    <dd class="col-sm-10">@Model.LoaiBaotri</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="MaBaotri" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

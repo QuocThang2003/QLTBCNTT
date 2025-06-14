@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QLTBCNTT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #2b6cb0, #4c9e9e);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-brand img {
+                height: 30px;
+                margin-right: 10px;
+            }
+
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-icons a {
+                color: #fff;
+                margin-left: 15px;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar-icons .badge {
+                background-color: #dc3545;
+                color: #fff;
+                border-radius: 50%;
+                padding: 2px 6px;
+                font-size: 12px;
+                margin-left: 5px;
+            }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+        }
+
+            .admin-profile img {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                margin-right: 5px;
+                vertical-align: middle;
+            }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding-top: 20px;
+            z-index: 900;
+            overflow-y: auto;
+        }
+
+            .sidebar .nav-link {
+                color: #333;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+            }
+
+                .sidebar .nav-link:hover {
+                    background-color: #f1f3f5;
+                }
+
+        .main-content {
+            margin-top: 60px;
+            margin-left: 200px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <img src="~/images/logo.png" alt="Logo" />
+            Thiết bị CNTT
+        </a>
+        <div class="navbar-icons">
+            <a href="#"><i class="fas fa-bell"></i><span class="badge">3</span></a>
+            <a href="#" class="admin-profile">
+                <img src="~/images/ANHMOI.jpg" alt="Avatar" />
+                <span>Đăng Thành (nhanvien)</span>
+            </a>
+            <a href="@Url.Action("Logout", "Auth")"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </header>
+
+    <nav class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "StaffDevice")">
+                    <i class="fas fa-box"></i> <span>Kho thiết bị</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

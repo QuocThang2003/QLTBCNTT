@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Giao Diện Nhân Viên";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+@{
+    ViewData["Title"] = "Mượn thiết bị";
+    var maThietbi = ViewBag.MaThietbi;
+    var tenThietbi = ViewBag.TenThietbi;
+}
+
+<h2>Yêu cầu mượn thiết bị</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<form asp-action="Borrow" method="post" class="mt-4">
+    <input type="hidden" name="maThietbi" value="@maThietbi" />
+
+    <div class="form-group">
+        <label>Tên thiết bị:</label>
+        <input type="text" class="form-control" value="@tenThietbi" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Ngày mượn:</label>
+        <input type="date" name="ngayMuon" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Ngày trả dự kiến:</label>
+        <input type="date" name="ngayTraDuKien" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Số lượng:</label>
+        <input type="number" name="soLuong" class="form-control" value="1" min="1" max="1" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Gửi yêu cầu mượn</button>
+    <a asp-action="Index" class="btn btn-secondary ml-2">Quay lại</a>
+</form>

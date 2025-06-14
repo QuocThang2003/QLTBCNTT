@@ -1,0 +1,25 @@
+﻿@model QLTBCNTT.Models.PhongBan
+@{
+    ViewData["Title"] = "Xóa Phòng Ban";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Bạn có chắc chắn muốn xóa phòng ban này không?</h4>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã phòng ban</th>
+        <td>@Model.MaPhongban</td>
+    </tr>
+    <tr>
+        <th>Tên phòng ban</th>
+        <td>@Model.TenPhongban</td>
+    </tr>
+</table>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="MaPhongban" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

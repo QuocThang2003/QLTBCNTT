@@ -1,0 +1,39 @@
+﻿@model QLTBCNTT.Models.NguoiDung
+@{
+    ViewData["Title"] = "Xác nhận xóa người dùng";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger mb-4">@ViewData["Title"]</h2>
+    <h5 class="mb-4">Bạn có chắc chắn muốn xóa người dùng này không?</h5>
+
+    <table class="table table-striped table-bordered w-75">
+        <tr>
+            <th>Họ tên</th>
+            <td>@Model.HoTen</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Model.SoDienthoai</td>
+        </tr>
+        <tr>
+            <th>Phòng ban</th>
+            <td>@Model.MaPhongbanNavigation?.TenPhongban</td>
+        </tr>
+        <tr>
+            <th>Vai trò</th>
+            <td>@Model.VaiTro</td>
+        </tr>
+    </table>
+
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" name="id" value="@Model.MaNguoidung" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

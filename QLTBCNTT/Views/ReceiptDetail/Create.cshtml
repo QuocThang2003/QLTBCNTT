@@ -1,0 +1,24 @@
+﻿@model QLTBCNTT.Models.ChiTietPhieuNhap
+
+@{
+    ViewData["Title"] = "Thêm mới Chi tiết Phiếu nhập";
+}
+
+<h2>Thêm mới Chi tiết Phiếu nhập</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="MaPhieunhap" class="control-label">Phiếu nhập</label>
+        <select asp-for="MaPhieunhap" class="form-control" asp-items="ViewBag.MaPhieunhap"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaThietbi" class="control-label">Thiết bị</label>
+        <select asp-for="MaThietbi" class="form-control" asp-items="ViewBag.MaThietbi"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="SoLuong" class="control-label">Số lượng</label>
+        <input asp-for="SoLuong" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Hủy</a>
+</form>

@@ -1,0 +1,34 @@
+﻿@model QLTBCNTT.Models.NhaCungCap
+
+@{
+    ViewData["Title"] = "Xóa Nhà Cung Cấp";
+}
+
+<h2 class="mb-4 text-danger fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm rounded-3 p-4">
+    <h4>Bạn có chắc muốn xóa nhà cung cấp này không?</h4>
+
+    <dl class="row">
+        <dt class="col-sm-3">Mã Nhà Cung Cấp</dt>
+        <dd class="col-sm-9">@Model.MaNcc</dd>
+
+        <dt class="col-sm-3">Tên Nhà Cung Cấp</dt>
+        <dd class="col-sm-9">@Model.TenNcc</dd>
+
+        <dt class="col-sm-3">Số điện thoại</dt>
+        <dd class="col-sm-9">@Model.Sdt</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaNcc" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt me-1"></i> Xóa
+        </button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<QLTBCNTT.Models.PhieuMuon>
+
+<h2>Phiếu mượn cần xử lý</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã phiếu</th>
+            <th>Người mượn</th>
+            <th>Ngày mượn</th>
+            <th>Ngày trả dự kiến</th>
+            <th>Thiết bị</th>
+            <th>Số Serial</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var phieu in Model)
+        {
+            var thietBis = phieu.ChiTietPhieuMuons.Select(ct => ct.MaThietbiNavigation).ToList();
+
+            for (int i = 0; i < thietBis.Count; i++)
+            {
+                <tr>
+                    @if (i == 0)
+                    {
+                        <td rowspan="@thietBis.Count">@phieu.MaPhieumuon</td>
+                        <td rowspan="@thietBis.Count">@phieu.NguoiMuonNavigation?.HoTen</td>
+                        <td rowspan="@thietBis.Count">@phieu.NgayMuon.ToString("dd/MM/yyyy")</td>
+                        <td rowspan="@thietBis.Count">@phieu.NgayTraDuKien.ToString("dd/MM/yyyy")</td>
+                    }
+
+                    <td>@thietBis[i]?.TenThietbi</td>
+                    <td>@thietBis[i]?.SoSerial</td>
+
+                    @if (i == 0)
+                    {
+                        <td rowspan="@thietBis.Count">
+                            @{
+                                var displayStatus = phieu.TrangThai switch
+                                {
+                                    "cho_duyet" => "Chờ duyệt",
+                                    "da_duyet" => "Đã duyệt",
+                                    "dang_muon" => "Đang mượn",
+                                    "da_tra" => "Đã trả",
+                                    "tre_han" => "Trễ hạn",
+                                    _ => phieu.TrangThai
+                                };
+                            }
+                            @displayStatus
+                        </td>
+
+                        <td rowspan="@thietBis.Count">
+                            @if (phieu.TrangThai == "cho_duyet")
+                            {
+                                <form asp-controller="Loan" asp-action="Approve" method="post" style="display:inline">
+                                    <input type="hidden" name="id" value="@phieu.MaPhieumuon" />
+                                    <button type="submit" class="btn btn-sm btn-success">Duyệt</button>
+                                </form>
+                                <form asp-controller="Loan" asp-action="Reject" method="post" style="display:inline">
+                                    <input type="hidden" name="id" value="@phieu.MaPhieumuon" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
+                                </form>
+                            }
+                            else if (phieu.TrangThai == "da_duyet" || phieu.TrangThai == "dang_muon" || phieu.TrangThai == "tre_han")
+                            {
+                                <form asp-controller="Loan" asp-action="MarkReturned" method="post" style="display:inline">
+                                    <input type="hidden" name="id" value="@phieu.MaPhieumuon" />
+                                    <button type="submit" class="btn btn-sm btn-primary">Đã trả</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không khả dụng</span>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>

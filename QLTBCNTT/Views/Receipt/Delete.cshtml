@@ -1,0 +1,22 @@
+﻿@model QLTBCNTT.Models.PhieuNhap
+
+<h2 class="text-center my-4">Xóa Phiếu Nhập</h2>
+<div class="card p-4 shadow">
+    <h4>Bạn có chắc chắn muốn xóa phiếu nhập này không?</h4>
+    <dl class="row">
+        <dt class="col-sm-3">Ngày nhập:</dt>
+        <dd class="col-sm-9">@Model.NgayNhap.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Người nhận:</dt>
+        <dd class="col-sm-9">@Model.NguoiNhanNavigation?.HoTen</dd>
+
+        <dt class="col-sm-3">Nhà cung cấp:</dt>
+        <dd class="col-sm-9">@Model.MaNccNavigation?.TenNcc</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaPhieunhap" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

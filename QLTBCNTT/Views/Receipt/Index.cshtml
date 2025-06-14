@@ -1,0 +1,37 @@
+﻿@model IEnumerable<QLTBCNTT.Models.PhieuNhap>
+
+@{
+    ViewData["Title"] = "Danh sách phiếu nhập";
+}
+
+<h2 class="text-center my-4">Danh sách Phiếu Nhập</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới phiếu nhập</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark text-center">
+        <tr>
+            <th>Ngày nhập</th>
+            <th>Người nhận</th>
+            <th>Nhà cung cấp</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NgayNhap.ToString("dd/MM/yyyy")</td>
+                <td>@item.NguoiNhanNavigation?.HoTen</td>
+                <td>@item.MaNccNavigation?.TenNcc</td>
+                <td class="text-center">
+                    <a asp-action="Details" asp-route-id="@item.MaPhieunhap" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Edit" asp-route-id="@item.MaPhieunhap" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaPhieunhap" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

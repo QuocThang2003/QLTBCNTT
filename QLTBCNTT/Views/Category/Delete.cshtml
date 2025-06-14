@@ -1,0 +1,28 @@
+﻿@model QLTBCNTT.Models.DanhMuc
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h2 class="mb-4 text-danger fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5>Bạn có muốn xóa danh mục này không?</h5>
+        <dl class="row mt-3">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.MaDanhmuc</dd>
+
+            <dt class="col-sm-3">Tên</dt>
+            <dd class="col-sm-9">@Model.TenDanhmuc</dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed">
+            <input type="hidden" asp-for="MaDanhmuc" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt me-1"></i> Delete
+            </button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

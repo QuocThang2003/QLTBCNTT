@@ -1,0 +1,93 @@
+﻿@model QLTBCNTT.Models.NguoiDung
+@{
+    ViewData["Title"] = "Tạo người dùng";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@ViewData["Title"]</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" class="row g-4 needs-validation" novalidate>
+                <div class="col-md-6">
+                    <label asp-for="HoTen" class="form-label fw-semibold">Họ tên</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                        <input asp-for="HoTen" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="HoTen" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                        <input asp-for="Email" class="form-control" type="email" required />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="SoDienthoai" class="form-label fw-semibold">Số điện thoại</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                        <input asp-for="SoDienthoai" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="SoDienthoai" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Mật khẩu</label>
+                    <div class="input-group">
+                        <input type="password" name="matKhau" id="matKhau" class="form-control" required />
+                        <span class="input-group-text">
+                            <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Vai trò</label>
+                    <select class="form-select" name="VaiTro" required>
+                        <option value="">-- Chọn vai trò --</option>
+                        <option value="admin" selected="@(Model?.VaiTro == "admin")">Admin</option>
+                        <option value="quanly" selected="@(Model?.VaiTro == "quanly")">Quản lý</option>
+                        <option value="nhanvien" selected="@(Model?.VaiTro == "nhanvien")">Nhân viên</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Phòng ban</label>
+                    <select name="maPhongban" class="form-select" asp-items="ViewBag.PhongBans">
+                        <option value="">-- Chọn phòng ban --</option>
+                    </select>
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success px-4">Tạo</button>
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Hiện/ẩn mật khẩu -->
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            const password = document.getElementById("matKhau");
+            const icon = this;
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                password.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
+        });
+    </script>
+}

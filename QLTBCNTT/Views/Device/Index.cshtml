@@ -1,0 +1,47 @@
+﻿@model IEnumerable<QLTBCNTT.Models.ThietBi>
+
+@{
+    ViewData["Title"] = "Danh sách thiết bị";
+}
+
+<h2>Danh sách thiết bị</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create")">Thêm thiết bị mới</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên thiết bị</th>
+            <th>Serial</th>
+            <th>Danh mục</th>
+            <th>Nhà cung cấp</th>
+            <th>Ngày mua</th>
+            <th>Giá mua</th>
+            <th>Bảo hành</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenThietbi</td>
+                <td>@item.SoSerial</td>
+                <td>@item.MaDanhmucNavigation?.TenDanhmuc</td>
+                <td>@item.MaNccNavigation?.TenNcc</td>
+                <td>@item.NgayMua?.ToString("dd/MM/yyyy")</td>
+                <td>@item.GiaMua</td>
+                <td>@item.ThoiGianBaohanh tháng</td>
+                <td>@item.TrangThai</td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Details", new { id = item.MaThietbi })">Chi tiết</a>
+                    <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", new { id = item.MaThietbi })">Sửa</a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", new { id = item.MaThietbi })">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

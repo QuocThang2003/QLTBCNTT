@@ -1,0 +1,24 @@
+﻿@model QLTBCNTT.Models.DanhMuc
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h2 class="mb-4 text-primary fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.MaDanhmuc</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.TenDanhmuc</dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.MaDanhmuc" class="btn btn-warning">
+            <i class="fas fa-edit me-1"></i> Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+    </div>
+</div>

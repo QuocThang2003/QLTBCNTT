@@ -1,0 +1,28 @@
+﻿@model QLTBCNTT.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Xóa thiết bị";
+}
+
+<h2>Bạn có chắc chắn muốn xóa thiết bị này?</h2>
+
+<div>
+    <h4>@Model.TenThietbi</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">Số serial</dt>
+        <dd class="col-sm-8">@Model.SoSerial</dd>
+
+        <dt class="col-sm-4">Danh mục</dt>
+        <dd class="col-sm-8">@Model.MaDanhmucNavigation?.TenDanhmuc</dd>
+
+        <dt class="col-sm-4">Nhà cung cấp</dt>
+        <dd class="col-sm-8">@Model.MaNccNavigation?.TenNcc</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaThietbi" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

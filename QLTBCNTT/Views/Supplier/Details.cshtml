@@ -1,0 +1,29 @@
+﻿@model QLTBCNTT.Models.NhaCungCap
+
+@{
+    ViewData["Title"] = "Chi tiết Nhà Cung Cấp";
+}
+
+<h2 class="mb-4 text-primary fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm rounded-3 p-4">
+    <dl class="row">
+        <dt class="col-sm-3">Mã Nhà Cung Cấp</dt>
+        <dd class="col-sm-9">@Model.MaNcc</dd>
+
+        <dt class="col-sm-3">Tên Nhà Cung Cấp</dt>
+        <dd class="col-sm-9">@Model.TenNcc</dd>
+
+        <dt class="col-sm-3">Số điện thoại</dt>
+        <dd class="col-sm-9">@Model.Sdt</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.MaNcc" class="btn btn-warning me-2">
+        <i class="fas fa-edit"></i> Sửa
+    </a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

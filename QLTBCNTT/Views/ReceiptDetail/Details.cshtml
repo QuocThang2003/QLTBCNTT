@@ -1,0 +1,26 @@
+﻿@model QLTBCNTT.Models.ChiTietPhieuNhap
+
+@{
+    ViewData["Title"] = "Chi tiết Chi tiết Phiếu nhập";
+}
+
+<h2>Chi tiết Phiếu nhập</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Mã phiếu nhập</dt>
+        <dd class="col-sm-9">@Model.MaPhieunhapNavigation?.MaPhieunhap</dd>
+
+        <dt class="col-sm-3">Tên thiết bị</dt>
+        <dd class="col-sm-9">@Model.MaThietbiNavigation?.TenThietbi</dd>
+
+        <dt class="col-sm-3">Số lượng</dt>
+        <dd class="col-sm-9">@Model.SoLuong</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MaChitietnhap" class="btn btn-warning">Chỉnh sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

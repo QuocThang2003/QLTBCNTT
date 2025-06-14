@@ -1,0 +1,167 @@
+﻿@{
+    ViewData["Title"] = "Tổng Quan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Cards -->
+<div class="row">
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tổng thiết bị</h5>
+                <p class="card-text display-4">@(ViewBag.TotalDevices ?? 0)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Còn hạng</h5>
+                <p class="card-text display-4">@(ViewBag.DeviceStatusCounts?.ConHang ?? 0)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Đang sử dụng</h5>
+                <p class="card-text display-4">@(ViewBag.DeviceStatusCounts?.DangSuDung ?? 0)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Đang mượn</h5>
+                <p class="card-text display-4">@(ViewBag.DeviceStatusCounts?.DangMuon ?? 0)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Đang bảo trì</h5>
+                <p class="card-text display-4">@(ViewBag.DeviceStatusCounts?.DangBaoTri ?? 0)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4 card-col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Đã thanh lý</h5>
+                <p class="card-text display-4">@(ViewBag.DeviceStatusCounts?.DaThanhLy ?? 0)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Phân loại thiết bị</h5>
+                <div class="chart-container">
+                    <canvas id="deviceTypeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Trạng thái thiết bị</h5>
+                <div class="chart-container">
+                    <canvas id="deviceStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Lấy dữ liệu từ ViewBag đã serialize
+        var deviceTypeData = @Html.Raw(ViewBag.DeviceTypeCounts ?? "[]");
+        var deviceTypeLabels = deviceTypeData.map(item => item.TenDanhmuc);
+        var deviceTypeCounts = deviceTypeData.map(item => item.Count);
+
+        // Biểu đồ phân loại thiết bị (Pie Chart)
+        var deviceTypeChart = new Chart(document.getElementById('deviceTypeChart'), {
+            type: 'pie',
+            data: {
+                labels: deviceTypeLabels,
+                datasets: [{
+                    data: deviceTypeCounts,
+                    backgroundColor: ['#2b6cb0', '#718096', '#38a169', '#e53e3e'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 },
+                            padding: 20
+                        }
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+
+        // Biểu đồ trạng thái thiết bị (Bar Chart)
+        var deviceStatusData = [
+        @(ViewBag.DeviceStatusCounts?.ConHang ?? 0),
+        @(ViewBag.DeviceStatusCounts?.DangSuDung ?? 0),
+        @(ViewBag.DeviceStatusCounts?.DangMuon ?? 0),
+        @(ViewBag.DeviceStatusCounts?.DangBaoTri ?? 0),
+        @(ViewBag.DeviceStatusCounts?.DaThanhLy ?? 0)
+                ];
+
+        var deviceStatusChart = new Chart(document.getElementById('deviceStatusChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Còn hạng', 'Đang sử dụng', 'Đang mượn', 'Đang bảo trì', 'Đã thanh lý'], // Sắp xếp nhãn theo card
+                datasets: [{
+                    data: deviceStatusData,
+                    backgroundColor: ['#48bb78', '#2b6cb0', '#d69e2e', '#e53e3e', '#f56565'],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: { size: 12 },
+                            color: '#2d3748'
+                        },
+                        grid: { color: '#e2e8f0' }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 12 },
+                            color: '#2d3748'
+                        },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+}

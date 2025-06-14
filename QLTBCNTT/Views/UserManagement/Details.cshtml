@@ -1,0 +1,52 @@
+﻿@model QLTBCNTT.Models.NguoiDung
+
+@{
+    ViewData["Title"] = "Chi tiết người dùng";
+}
+
+<h2 class="mt-4 mb-4 fw-bold text-primary">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white fw-bold">
+        Thông tin người dùng
+    </div>
+    <div class="card-body p-4">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th style="width: 200px;">Họ tên</th>
+                <td>@Model.HoTen</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Model.SoDienthoai</td>
+            </tr>
+            <tr>
+                <th>Phòng ban</th>
+                <td>@Model.MaPhongbanNavigation?.TenPhongban</td> 
+            </tr>
+            <tr>
+                <th>Vai trò</th>
+                <td>
+                    <span class="badge bg-secondary">@Model.VaiTro</span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="mt-4 text-end">
+            <a class="btn btn-warning me-2" href="@Url.Action("Edit", new { id = Model.MaNguoidung })">
+                <i class="fas fa-edit"></i> Sửa
+            </a>
+            <a class="btn btn-secondary" href="@Url.Action("Index")">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

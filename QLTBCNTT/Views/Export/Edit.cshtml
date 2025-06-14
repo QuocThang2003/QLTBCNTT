@@ -1,0 +1,29 @@
+﻿@model QLTBCNTT.Models.PhieuXuat
+@{
+    ViewData["Title"] = "Chỉnh sửa phiếu xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaPhieuxuat" />
+    <div class="form-group">
+        <label asp-for="NgayXuat" class="control-label">Ngày xuất</label>
+        <input asp-for="NgayXuat" class="form-control" type="date" />
+        <span asp-validation-for="NgayXuat" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Phòng ban</label>
+        <select asp-for="MaPhongban" class="form-control" asp-items="ViewBag.MaPhongban"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Người nhận</label>
+        <select asp-for="NguoiNhan" class="form-control" asp-items="ViewBag.NguoiNhan"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Lưu" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>

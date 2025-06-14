@@ -1,0 +1,31 @@
+﻿@model IEnumerable<QLTBCNTT.Models.PhongBan>
+@{
+    ViewData["Title"] = "Danh sách Phòng Ban";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-2">Thêm mới</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên phòng ban</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaPhongban</td>
+                <td>@item.TenPhongban</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaPhongban" class="btn btn-sm btn-warning">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaPhongban" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

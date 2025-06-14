@@ -1,0 +1,30 @@
+﻿@model QLTBCNTT.Models.DanhMuc
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h2 class="mb-4 text-primary fw-bold">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="MaDanhmuc" />
+            <div class="mb-3">
+                <label asp-for="TenDanhmuc" class="form-label">Tên danh mục</label>
+                <input asp-for="TenDanhmuc" class="form-control" />
+                <span asp-validation-for="TenDanhmuc" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i> Update
+            </button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
