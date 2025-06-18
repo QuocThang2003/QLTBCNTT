@@ -64,7 +64,7 @@ public class AuthController : Controller
         if (user == null)
         {
             ViewBag.Error = "Email không tồn tại.";
-            ViewBag.ShowForgot = true; // ✅ để mở lại form quên mật khẩu
+            ViewBag.ShowForgot = true; // 
             return View("Login");
         }
 
@@ -105,7 +105,7 @@ public class AuthController : Controller
         await SendEmail(user.Email!, "Yêu cầu khôi phục mật khẩu - QL TBCNTT", emailBody);
 
         ViewBag.Message = "Đã gửi liên kết đặt lại mật khẩu đến email của bạn.";
-        ViewBag.ShowForgot = true; // ✅ Đảm bảo form vẫn là “quên mật khẩu”
+        ViewBag.ShowForgot = true; // 
         return View("Login");
     }
 
