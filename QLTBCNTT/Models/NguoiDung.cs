@@ -18,6 +18,8 @@ public partial class NguoiDung
     public int? MaPhongban { get; set; }
 
     public string VaiTro { get; set; } = null!;
+    public string? ResetToken { get; set; }
+  public DateTime? ResetTokenExpiry { get; set; }
 
     public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
 
